@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import Clarifai from 'clarifai'
 import Nav from './components/Nav/nav'
 import Logo  from './components/Logo/logo'
 import ImageForm  from './components/ImageForm/ImageForm'
@@ -11,10 +10,6 @@ import './App.css';
 import 'tachyons'
 import Particles from 'react-particles-js'
 
-
-const app = new Clarifai.App({
-  apiKey: 'a9e966e7d89d4219adbd6e8866e72147'
-});
 
 const particleParams = {
   particles: {
@@ -84,34 +79,36 @@ class App extends Component {
 
   onSubmit = () => {
     this.setState({ imageUrl: this.state.input });
-    app.models
-      .predict(
-        Clarifai.FACE_DETECT_MODEL,
-        this.state.input)
-      .then(response => {
-        if (response) {
-          fetch('http://localhost:4000/image', {
-            method: 'put',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              id: this.state.user.id
-            })
-          })
-            .then(response => response.json())
-            .then(count => {
-              this.setState(Object.assign(this.state.user, { entries: count }))
-            })
-        }
-        this.displayFaceBox(this.calculateFaceLocation(response))
+    fetch('http://localhost:4000/imageurl', {
+      method: 'post',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        input: this.state.input
       })
+    })
+    .then(response => response.json())
+    .then(response => {
+      if (response) {
+        fetch('http://localhost:4000/image', {
+          method: 'put',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            id: this.state.user.id
+          })
+        })
+          .then(response => response.json())
+          .then(count => {
+            this.setState(Object.assign(this.state.user, { entries: count }))
+          })
+      }
+      this.displayFaceBox(this.calculateFaceLocation(response))
+    })
       .catch(err => console.log(err));
   }
 
   onRouteChange = (route) => {
     if (route === 'signout') {
-      this.setState({
-        initialState
-      })
+      this.setState(initialState)
     } else if (route === 'home')
     this.setState({
       route: route,
