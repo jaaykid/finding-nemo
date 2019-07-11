@@ -10,7 +10,6 @@ import './App.css';
 import 'tachyons'
 import Particles from 'react-particles-js'
 
-
 const particleParams = {
   particles: {
     number: {
