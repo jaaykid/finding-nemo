@@ -12,5 +12,6 @@ A facial recognition app built using Clarifai's api
 ### technologies used
 - React
 - Node.js 
+- Clarifai api
           
           
