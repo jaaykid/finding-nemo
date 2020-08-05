@@ -15,7 +15,7 @@ class Signin extends Component {
   }
 
   onSubmitSignIn = () => {
-    fetch('https://enigmatic-sea-70470.herokuapp.com/signin', {
+    fetch('http://localhost:4000/signin', {
       method: 'post',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -41,7 +41,9 @@ class Signin extends Component {
             <fieldset id="sign_up" className="ba b--transparent ph0 mh0">
               <legend className="f1 fw6 ph0 mh0">Sign In</legend>
               <div className="mt3">
-                <label className="db fw6 lh-copy f6" htmlFor="email-address">Email</label>
+                <label className="db fw6 lh-copy f6" htmlFor="email-address">
+                  Email
+                </label>
                 <input
                   className="pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100"
                   type="email"
@@ -51,7 +53,9 @@ class Signin extends Component {
                 />
               </div>
               <div className="mv3">
-                <label className="db fw6 lh-copy f6" htmlFor="password">Password</label>
+                <label className="db fw6 lh-copy f6" htmlFor="password">
+                  Password
+                </label>
                 <input
                   className="b pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100"
                   type="password"
@@ -70,7 +74,20 @@ class Signin extends Component {
               />
             </div>
             <div className="lh-copy mt3">
-              <p onClick={() => onRouteChange('register')} className="f6 link dim black db pointer">Register</p>
+              <p
+                onClick={() => onRouteChange("home")}
+                className="f6 link dim black db pointer underline"
+              >
+                continue without signing in
+              </p>
+            </div>
+            <div className="lh-copy mt3">
+              <p
+                onClick={() => onRouteChange("register")}
+                className="f6 link dim black db pointer"
+              >
+                Register
+              </p>
             </div>
           </div>
         </main>
